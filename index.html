@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For My Baby ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Georgia, serif;
+    background: linear-gradient(135deg, #210817, #6d123d, #180c29);
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+section {
+    display: none;
+    min-height: 100vh;
+    padding: 35px 20px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+section.active {
+    display: flex;
+    animation: appear 0.8s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    width: 100%;
+    max-width: 440px;
+    padding: 30px 23px;
+    border: 1px solid #ffffff35;
+    border-radius: 25px;
+    background: #ffffff12;
+    box-shadow: 0 10px 45px #00000035;
+    backdrop-filter: blur(8px);
+}
+
+h1 {
+    color: #ffb6d5;
+    font-size: clamp(29px, 7vw, 39px);
+}
+
+h2 {
+    color: #ffd0e3;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.emoji {
+    font-size: 65px;
+    margin: 10px;
+}
+
+button {
+    display: inline-block;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 22px;
+    margin: 8px 4px;
+    background: #ff619b;
+    color: white;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+button:hover {
+    background: #ff8ab5;
+    transform: scale(1.04);
+}
+
+input {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ffb6d5;
+    border-radius: 12px;
+    font-size: 16px;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.small {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+#feedback {
+    color: #ffd0e3;
+}
+
+.cake {
+    font-size: 95px;
+    animation: bounce 1.5s infinite alternate;
+}
+
+@keyframes bounce {
+    to {
+        transform: translateY(-9px);
+    }
+}
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatUp 7s linear forwards;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-115vh) rotate(30deg);
+        opacity: 0;
+    }
+}
+
+.envelope {
+    font-size: 85px;
+    cursor: pointer;
+}
+
+#letter {
+    display: none;
+    text-align: left;
+    white-space: pre-line;
+    background: #ffffff12;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.reason {
+    min-height: 95px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: #ffd0e3;
+}
+
+footer {
+    margin-top: 22px;
+    font-size: 12px;
+    opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 1. SECRET ENTRANCE -->
+<section id="s1" class="active">
+    <div class="card">
+        <div class="emoji">💌</div>
+
+        <h1>Hey, Baby! ❤️</h1>
+
+        <p>
+            Someone very special has a birthday...
+            and someone loves him more than words can explain. 🥹
+        </p>
+
+        <p>Are you ready for your little surprise?</p>
+
+        <input id="password"
+               type="password"
+               placeholder="Enter your secret word 💗">
+
+        <button onclick="unlock()">Unlock My Surprise 💝</button>
+
+        <p class="small">Hint: What do I call you? 😉</p>
+        <p id="feedback"></p>
+    </div>
+</section>
+
+<!-- 2. BIRTHDAY WELCOME -->
+<section id="s2">
+    <div class="card">
+        <div class="emoji">🎉❤️🎂</div>
+
+        <h1>Happy Birthday, Baby!</h1>
+
+        <p>
+            Today is all about YOU!
+            The person who makes my heart smile
+            and my world feel more beautiful. 💗
+        </p>
+
+        <p>I made something special just for you...</p>
+
+        <button onclick="showSection('s3')">
+            Let's Begin, Birthday Boy! 💋
+        </button>
+    </div>
+</section>
+
+<!-- 3. BIRTHDAY CAKE -->
+<section id="s3">
+    <div class="card">
+        <h1>A Cake Just For You 🎂</h1>
+
+        <div class="cake">🎂</div>
+
+        <p id="cakeMessage">
+            Make a wish, Baby! ✨
+            Now tap below to blow out your candles.
+        </p>
+
+        <button id="cakeButton" onclick="blowCandles()">
+            Blow Out Candles 🕯️
+        </button>
+
+        <button id="cakeNext"
+                style="display:none"
+                onclick="showSection('s4')">
+            Read Your Love Letter 💌
+        </button>
+    </div>
+</section>
+
+<!-- 4. LOVE LETTER -->
+<section id="s4">
+    <div class="card">
+        <h1>One Letter, A Million Feelings 💌</h1>
+
+        <p>I've written something from my heart, just for you.</p>
+
+        <div class="envelope" onclick="openLetter()">💌</div>
+
+        <button onclick="openLetter()">Open My Letter ❤️</button>
+
+        <div id="letter">
+My Dearest Baby, ❤️
+
+Happy Birthday to the most special person in my life! 🥹💗
+
+I wish I could put all my feelings into words, but sometimes even a thousand words would not be enough to explain how much you mean to me.
+
+Your happiness matters to me. Your smile makes my day brighter, and the little moments we share mean more to me than you know.
+
+On your birthday, I wish you endless happiness, good health, success, and all the beautiful things your heart dreams of.
+
+I hope you always feel loved, appreciated, and supported. I hope we get to make many more beautiful memories together.
+
+Thank you for being YOU, Baby. ❤️
+
+Happy Birthday, my favourite person.
+
+With all my love,
+Your girl forever. 💋
+        </div>
+
+        <button onclick="showSection('s5')">
+            Next Surprise 💗
+        </button>
+    </div>
+</section>
+
+<!-- 5. REASONS I LOVE YOU -->
+<section id="s5">
+    <div class="card">
+        <h1>Why I Love You 💖</h1>
+
+        <p>Tap the button to discover something special.</p>
+
+        <div class="reason" id="reason">
+            Ready, Baby? 🥰
+        </div>
+
+        <button onclick="nextReason()">Tell Me Why! 💕</button>
+
+        <button onclick="showSection('s6')">
+            One Last Surprise 🎁
+        </button>
+    </div>
+</section>
+
+<!-- 6. MUSIC AND FINAL SURPRISE -->
+<section id="s6">
+    <div class="card">
+        <div class="emoji">🎶💗🎶</div>
+
+        <h1>A Little Song For You</h1>
+
+        <p>
+            Every love story has a song.
+            Let's make this moment ours. ❤️
+        </p>
+
+        <audio id="song" controls loop>
+            <source src="song.mp3" type="audio/mpeg">
+            Your browser does not support this audio.
+        </audio>
+
+        <p class="small">
+            Add your favourite song as song.mp3 to the repository
+            to play it here.
+        </p>
+
+        <hr style="border-color:#ffffff35; margin:25px 0">
+
+        <div class="emoji">💋❤️🥹</div>
+
+        <h1>One Last Thing, Baby...</h1>
+
+        <p>
+            If I could make one birthday wish for myself,
+            it would be to celebrate many more birthdays
+            with you, making beautiful memories together.
+        </p>
+
+        <p>
+            No matter how many birthdays come and go,
+            you will always be someone very special to me.
+        </p>
+
+        <h2>I Love You, Baby! ❤️</h2>
+
+        <button onclick="celebrate()">Send You A Million Hearts 💋</button>
+
+        <p id="finalMessage"></p>
+
+        <button onclick="showSection('s1')">
+            Relive Your Surprise 🔁
+        </button>
+
+        <footer>Made with all my love, just for you. ❤️</footer>
+    </div>
+</section>
+
+<script>
+function showSection(id) {
+    document.querySelectorAll("section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+function unlock() {
+    const value = document.getElementById("password").value
+        .trim().toLowerCase();
+
+    if (value === "baby") {
+        showSection("s2");
+        document.getElementById("feedback").textContent = "";
+    } else {
+        document.getElementById("feedback").textContent =
+            "Oops, Baby! Try the hint again. 💗";
+    }
+}
+
+document.getElementById("password").addEventListener("keydown", e => {
+    if (e.key === "Enter") unlock();
+});
+
+function blowCandles() {
+    document.querySelector(".cake").textContent = "🎂✨💨";
+
+    document.getElementById("cakeMessage").textContent =
+        "YAYYYY! 🥹❤️ May all your wishes come true, Baby!";
+
+    document.getElementById("cakeButton").style.display = "none";
+    document.getElementById("cakeNext").style.display = "inline-block";
+
+    celebrate();
+}
+
+function openLetter() {
+    document.getElementById("letter").style.display = "block";
+}
+
+const reasons = [
+    "Because your smile makes my day brighter. 😊❤️",
+    "Because you make ordinary moments special. 💗",
+    "Because I love the little things about you. 🥹",
+    "Because you make me smile without even trying. 💋",
+    "Because you are my favourite person. 💖",
+    "Because being with you makes me happy. 🫶",
+    "Because you are YOU, and that's my favourite thing. ❤️"
+];
+
+let reasonIndex = 0;
+
+function nextReason() {
+    document.getElementById("reason").textContent =
+        reasons[reasonIndex];
+
+    reasonIndex = (reasonIndex + 1) % reasons.length;
+}
+
+function celebrate() {
+    document.getElementById("finalMessage").textContent =
+        "❤️❤️❤️ Sending you the biggest hug and a million kisses, Baby! 💋🥹";
+
+    for (let i = 0; i < 35; i++) {
+        setTimeout(createHeart, i * 100);
+    }
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+    heart.textContent = ["❤️", "💗", "💕", "💖", "💋"][
+        Math.floor(Math.random() * 5)
+    ];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (18 + Math.random() * 25) + "px";
+    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 8000);
+}
+
+setInterval(createHeart, 650);
+</script>
+
+</body>
+</html>
